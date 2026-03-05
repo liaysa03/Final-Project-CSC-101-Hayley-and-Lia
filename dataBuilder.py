@@ -130,3 +130,90 @@ san_luis_obispo_data = {
     "Total employment (2023)": 98720
 }
 
+imperial_data = {
+    "Population estimates (July 1, 2024)": 181724,
+    "Persons under 5 years (%)": 6.70,
+    "Persons under 18 years (%)": 27.90,
+    "Persons 65 years and over (%)": 14.20,
+    "White alone (%)": 89.80,
+    "Black alone (%)": 3.20,
+    "American Indian and Alaska Native alone (%)": 2.90,
+    "Asian alone (%)": 2.20,
+    "Native Hawaiian and Other Pacific Islander alone (%)": 0.20,
+    "Two or More Races (%)": 1.70,
+    "Hispanic or Latino (%)": 86.60,
+    "White alone, not Hispanic or Latino (%)": 8.60,
+    "Median gross rent (2020–2024)": 1056,
+    "With a disability, under age 65 years (%)": 9.50,
+    "Persons without health insurance, under age 65 years (%)": 8.40,
+    "Median household income (2024 dollars)": 57681,
+    "Per capita income (2024 dollars)": 23552,
+    "Persons in poverty (%)": 18.80,
+    "Total employment (2023)": 34323
+}
+
+kern_data = {
+    "Population estimates (July 1, 2024)": 922529,
+    "Persons under 5 years (%)": 6.60,
+    "Persons under 18 years (%)": 27.90,
+    "Persons 65 years and over (%)": 12.40,
+    "White alone (%)": 81.20,
+    "Black alone (%)": 6.10,
+    "American Indian and Alaska Native alone (%)": 2.80,
+    "Asian alone (%)": 6.10,
+    "Native Hawaiian and Other Pacific Islander alone (%)": 0.30,
+    "Two or More Races (%)": 3.40,
+    "Hispanic or Latino (%)": 57.80,
+    "White alone, not Hispanic or Latino (%)": 29.20,
+    "Median gross rent (2020–2024)": 1300,
+    "With a disability, under age 65 years (%)": 9.00,
+    "Persons without health insurance, under age 65 years (%)": 9.30,
+    "Median household income (2024 dollars)": 70210,
+    "Per capita income (2024 dollars)": 29699,
+    "Persons in poverty (%)": 18.60,
+    "Total employment (2023)": 219016
+}
+
+santa_barbara_data = {
+    "Population estimates (July 1, 2024)": 444500,
+    "Persons under 5 years (%)": 6.10,
+    "Persons under 18 years (%)": 22.20,
+    "Persons 65 years and over (%)": 17.40,
+    "White alone (%)": 84.70,
+    "Black alone (%)": 2.30,
+    "American Indian and Alaska Native alone (%)": 2.20,
+    "Asian alone (%)": 6.40,
+    "Native Hawaiian and Other Pacific Islander alone (%)": 0.30,
+    "Two or More Races (%)": 4.10,
+    "Hispanic or Latino (%)": 49.30,
+    "White alone, not Hispanic or Latino (%)": 40.30,
+    "Median gross rent (2020–2024)": 2131,
+    "With a disability, under age 65 years (%)": 7.60,
+    "Persons without health insurance, under age 65 years (%)": 10.30,
+    "Median household income (2024 dollars)": 98161,
+    "Per capita income (2024 dollars)": 48028,
+    "Persons in poverty (%)": 15.70,
+    "Total employment (2023)": 160460
+}
+
+ventura_data = {
+    "Population estimates (July 1, 2024)": 835427,
+    "Persons under 5 years (%)": 5.20,
+    "Persons under 18 years (%)": 21.10,
+    "Persons 65 years and over (%)": 18.60,
+    "White alone (%)": 82.80,
+    "Black alone (%)": 2.50,
+    "American Indian and Alaska Native alone (%)": 2.00,
+    "Asian alone (%)": 8.60,
+    "Native Hawaiian and Other Pacific Islander alone (%)": 0.30,
+    "Two or More Races (%)": 3.90,
+    "Hispanic or Latino (%)": 45.30,
+    "White alone, not Hispanic or Latino (%)": 41.70,
+    "Median gross rent (2020–2024)": 2317,
+    "With a disability, under age 65 years (%)": 7.30,
+    "Persons without health insurance, under age 65 years (%)": 8.50,
+    "Median household income (2024 dollars)": 109797,
+    "Per capita income (2024 dollars)": 49748,
+    "Persons in poverty (%)": 9.50,
+    "Total employment (2023)": 273697
+}
