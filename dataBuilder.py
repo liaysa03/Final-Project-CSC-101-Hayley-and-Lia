@@ -17,7 +17,20 @@ san_bernardino_data = {
     "Median household income (2024 dollars)": 85478,
     "Per capita income (2024 dollars)": 34343,
     "Persons in poverty (%)": 12.60,
-    "Total employment (2023)": 718612
+    "Total employment (2023)": 718612,
+    "Children,low access to store (2019)": 29.01,
+    "Seniors, low access to store (2019)": 35.14,
+    "White, low access to store (2019)":35.06,
+    "Black, low access to store (2019)": 27.09,
+    "Hispanic, low access to store (2019)": 23.28,
+    "Asian, low access to store (2019)": 25.69,
+    "American Indian or Alaska Native, low access to store (2019)": 34.16,
+    "Hawaiian or Pacific Islander, low access to store (2019)": 32.65,
+    "FDPIR Sites(2015)": 2,
+    "Food Banks (2021)": 0,
+    "SNAP Authorized Stores": 1511.00,
+    "WIC Authorized Stores": 208,
+    "Grocery stores": 308
 }
 
 riverside_data = {
@@ -39,7 +52,20 @@ riverside_data = {
     "Median household income (2024 dollars)": 93074,
     "Per capita income (2024 dollars)": 38317,
     "Persons in poverty (%)": 9.80,
-    "Total employment (2023)": 687526
+    "Total employment (2023)": 687526,
+    "Children,low access to store (2019)": 30.37,
+    "Seniors, low access to store (2019)": 35.40,
+    "White, low access to store (2019)":33.71,
+    "Black, low access to store (2019)": 29.39,
+    "Hispanic, low access to store (2019)": 27.37,
+    "Asian, low access to store (2019)": 31.65,
+    "American Indian or Alaska Native, low access to store (2019)": 34.62,
+    "Hawaiian or Pacific Islander, low access to store (2019)": 26.68,
+    "FDPIR Sites(2015)": 7,
+    "Food Banks (2021)": 2,
+    "SNAP Authorized Stores": 1349.00,
+    "WIC Authorized Stores": 241,
+    "Grocery stores (2020)": 353,
 }
 
 san_diego_data = {
@@ -61,7 +87,21 @@ san_diego_data = {
     "Median household income (2024 dollars)": 106268,
     "Per capita income (2024 dollars)": 51976,
     "Persons in poverty (%)": 10.10,
-    "Total employment (2023)": 1391721
+    "Total employment (2023)": 1391721,
+    "Children,low access to store (2019)": 19.32,
+    "Seniors, low access to store (2019)": 21.88,
+    "White, low access to store (2019)":22.58,
+    "Black, low access to store (2019)": 13.90,
+    "Hispanic, low access to store (2019)": 12.39,
+    "Asian, low access to store (2019)": 17.56,
+    "American Indian or Alaska Native, low access to store (2019)": 30.44,
+    "Hawaiian or Pacific Islander, low access to store (2019)": 16.30,
+    "FDPIR Sites(2015)": 17,
+    "Food Banks (2021)": 1,
+    "SNAP Authorized Stores": 1783.00,
+    "WIC Authorized Stores": 319,
+    "Grocery stores (2020)": 577,
+
 }
 
 orange_data = {
@@ -83,7 +123,20 @@ orange_data = {
     "Median household income (2024 dollars)": 116289,
     "Per capita income (2024 dollars)": 54557,
     "Persons in poverty (%)": 9.70,
-    "Total employment (2023)": 1580778
+    "Total employment (2023)": 1580778,
+    "Children,low access to store (2019)": 8.77,
+    "Seniors, low access to store (2019)": 10.10,
+    "White, low access to store (2019)": 10.78,
+    "Black, low access to store (2019)": 6.93,
+    "Hispanic, low access to store (2019)": 4,
+    "Asian, low access to store (2019)": 7.53,
+    "American Indian or Alaska Native, low access to store (2019)": 5.27,
+    "Hawaiian or Pacific Islander, low access to store (2019)": 5.13,
+    "FDPIR Sites(2015)": 0,
+    "Food Banks (2021)": 1,
+    "SNAP Authorized Stores": 1536.00,
+    "WIC Authorized Stores": 306,
+    "Grocery stores (2020)": 509,
 }
 
 los_angeles_data = {
@@ -105,7 +158,20 @@ los_angeles_data = {
     "Median household income (2024 dollars)": 90112,
     "Per capita income (2024 dollars)": 45792,
     "Persons in poverty (%)": 13.30,
-    "Total employment (2023)": 3987736
+    "Total employment (2023)": 3987736,
+    "Children,low access to store (2019)": 7.08,
+    "Seniors, low access to store (2019)": 8.42,
+    "White, low access to store (2019)": 8.83,
+    "Black, low access to store (2019)": 6.93,
+    "Hispanic, low access to store (2019)": 4.69,
+    "Asian, low access to store (2019)": 6.53,
+    "American Indian or Alaska Native, low access to store (2019)": 5.85,
+    "Hawaiian or Pacific Islander, low access to store (2019)": 5.32,
+    "FDPIR Sites(2015)": 0,
+    "Food Banks (2021)": 1,
+    "SNAP Authorized Stores": 6296.00,
+    "WIC Authorized Stores": 909.00,
+    "Grocery stores (2020)": 1908.00,
 }
 
 san_luis_obispo_data = {
@@ -127,7 +193,20 @@ san_luis_obispo_data = {
     "Median household income (2024 dollars)": 97446,
     "Per capita income (2024 dollars)": 51592,
     "Persons in poverty (%)": 12.60,
-    "Total employment (2023)": 98720
+    "Total employment (2023)": 98720,
+    "Children,low access to store (2019)": 35.13,
+    "Seniors, low access to store (2019)": 40.24,
+    "White, low access to store (2019)": 37.52,
+    "Black, low access to store (2019)": 64.96,
+    "Hispanic, low access to store (2019)": 31.77,
+    "Asian, low access to store (2019)": 28.89,
+    "American Indian or Alaska Native, low access to store (2019)": 38.32,
+    "Hawaiian or Pacific Islander, low access to store (2019)": 28.30,
+    "FDPIR Sites(2015)": 0,
+    "Food Banks (2021)": 1,
+    "SNAP Authorized Stores": 184,
+    "WIC Authorized Stores": 27,
+    "Grocery stores (2020)": 60,
 }
 
 imperial_data = {
@@ -149,7 +228,20 @@ imperial_data = {
     "Median household income (2024 dollars)": 57681,
     "Per capita income (2024 dollars)": 23552,
     "Persons in poverty (%)": 18.80,
-    "Total employment (2023)": 34323
+    "Total employment (2023)": 34323,
+    "Children,low access to store (2019)": 24.26,
+    "Seniors, low access to store (2019)": 26.08,
+    "White, low access to store (2019)": 29.98,
+    "Black, low access to store (2019)": 66.23,
+    "Hispanic, low access to store (2019)": 23.87,
+    "Asian, low access to store (2019)": 30.94,
+    "American Indian or Alaska Native, low access to store (2019)": 60.56,
+    "Hawaiian or Pacific Islander, low access to store (2019)": 65.27,
+    "FDPIR Sites(2015)": 1,
+    "Food Banks (2021)": 1,
+    "SNAP Authorized Stores": 131.00,
+    "WIC Authorized Stores": 24.00,
+    "Grocery stores (2020)": 25.00,
 }
 
 kern_data = {
@@ -171,7 +263,20 @@ kern_data = {
     "Median household income (2024 dollars)": 70210,
     "Per capita income (2024 dollars)": 29699,
     "Persons in poverty (%)": 18.60,
-    "Total employment (2023)": 219016
+    "Total employment (2023)": 219016,
+    "Children,low access to store (2019)": 25.14,
+    "Seniors, low access to store (2019)": 31.54,
+    "White, low access to store (2019)": 33.33,
+    "Black, low access to store (2019)": 33.44,
+    "Hispanic, low access to store (2019)": 21.75,
+    "Asian, low access to store (2019)": 30.02,
+    "American Indian or Alaska Native, low access to store (2019)": 24.70,
+    "Hawaiian or Pacific Islander, low access to store (2019)": 30.55,
+    "FDPIR Sites(2015)": 1,
+    "Food Banks (2021)": 1,
+    "SNAP Authorized Stores": 780,
+    "WIC Authorized Stores": 161,
+    "Grocery stores (2020)": 191,
 }
 
 santa_barbara_data = {
@@ -193,7 +298,20 @@ santa_barbara_data = {
     "Median household income (2024 dollars)": 98161,
     "Per capita income (2024 dollars)": 48028,
     "Persons in poverty (%)": 15.70,
-    "Total employment (2023)": 160460
+    "Total employment (2023)": 160460,
+    "Children,low access to store (2019)": 21.03,
+    "Seniors, low access to store (2019)": 24.82,
+    "White, low access to store (2019)": 22.98,
+    "Black, low access to store (2019)": 23.58,
+    "Hispanic, low access to store (2019)": 16.07,
+    "Asian, low access to store (2019)": 17.34,
+    "American Indian or Alaska Native, low access to store (2019)": 18.42,
+    "Hawaiian or Pacific Islander, low access to store (2019)": 28.04,
+    "FDPIR Sites(2015)": 0,
+    "Food Banks (2021)": 1,
+    "SNAP Authorized Stores": 266.00,
+    "WIC Authorized Stores": 60.00,
+    "Grocery stores (2020)": 124.00,
 }
 
 ventura_data = {
@@ -215,5 +333,18 @@ ventura_data = {
     "Median household income (2024 dollars)": 109797,
     "Per capita income (2024 dollars)": 49748,
     "Persons in poverty (%)": 9.50,
-    "Total employment (2023)": 273697
+    "Total employment (2023)": 273697,
+    "Children,low access to store (2019)": 18.33,
+    "Seniors, low access to store (2019)": 22.21,
+    "White, low access to store (2019)": 21.95,
+    "Black, low access to store (2019)": 15.21,
+    "Hispanic, low access to store (2019)": 10.78,
+    "Asian, low access to store (2019)": 20.78,
+    "American Indian or Alaska Native, low access to store (2019)": 12.62,
+    "Hawaiian or Pacific Islander, low access to store (2019)": 14.24,
+    "FDPIR Sites(2015)": 0,
+    "Food Banks (2021)": 1,
+    "SNAP Authorized Stores": 475.00,
+    "WIC Authorized Stores": 105.00,
+    "Grocery stores (2020)": 175.00,
 }
