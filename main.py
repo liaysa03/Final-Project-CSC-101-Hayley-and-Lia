@@ -113,7 +113,7 @@ def select_county():
     print("\nSoCal Counties:")
     for name in foodSecurity:
         print("-", name)
-
+    #chatgpt formating of print output
     input_county = input("\nWhich SoCal County would you like to analyze?: ").strip()
     county_name = " ".join(word.capitalize() for word in input_county.split())
 
@@ -174,7 +174,7 @@ def which_method():
 
         ratio = food_assistance_to_pop_ratio(county_data)
 
-        print(f"\nFood assistance to population ratio in {county_name}: {ratio:.6f}")
+        print(f"\nFood assistance to population ratio in {county_name}: {ratio:}")
 
     elif choice == "3":
 
@@ -182,7 +182,7 @@ def which_method():
 
         print(f"\n{county_name} Poverty Rate: {poverty_percent}%")
         print(f"Total Food Assistance Sites: {total_food_sites}")
-        print(f"Food Assistance Sites per 1000 People in Poverty: {sites_per_1000:.2f}")
+        print(f"Food Assistance Sites per 1000 People in Poverty: {sites_per_1000:}")
 
     elif choice == "4":
 
@@ -190,7 +190,7 @@ def which_method():
 
         print(f"\n{county_name} Per Capita Income: ${income}")
         print(f"Total Food Assistance Sites: {total_food_sites}")
-        print(f"Food Assistance Sites per 100,000 People: {sites_per_100k:.2f}")
+        print(f"Food Assistance Sites per 100,000 People: {sites_per_100k:}")
 
     else:
         print("Invalid selection.")
