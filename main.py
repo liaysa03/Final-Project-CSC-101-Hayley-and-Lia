@@ -198,6 +198,5 @@ def which_method():
 
 if __name__ == "__main__":
     which_method()
-# amount of food assistance, poverty
-# amount of food assistance, median income
+
 # total employment, poverty, and total population
