@@ -113,8 +113,9 @@ def select_county():
     print("\nSoCal Counties:")
     for name in foodSecurity:
         print("-", name)
-    #chatgpt formating of print output
+
     input_county = input("\nWhich SoCal County would you like to analyze?: ").strip()
+    # chatgpt formating of print output
     county_name = " ".join(word.capitalize() for word in input_county.split())
 
     if county_name not in foodSecurity:
