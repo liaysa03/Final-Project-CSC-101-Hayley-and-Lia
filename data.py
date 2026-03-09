@@ -37,8 +37,6 @@ class foodSecurity:
             self.incomeI, self.poverty, self.employment
             )
 
-
-
     def __eq__(self, other):
         return (
                 self.popEst == other.popEst and self.under5 == other.under5 and self.under18 == other.under18 and
