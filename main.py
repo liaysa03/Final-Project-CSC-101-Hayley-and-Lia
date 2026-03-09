@@ -1,7 +1,5 @@
-# main.py
 from dataBuilder import *
 
-# Map county names to their data dictionaries
 foodSecurity = {
     "Los Angeles": los_angeles_data,
     "Orange": orange_data,
@@ -16,9 +14,7 @@ foodSecurity = {
 }
 
 def get_population_key(low_access_key):
-    """
-    Guess the correct population percentage key based on the low access key.
-    """
+
     if "Seniors" in low_access_key:
         return "Persons 65 years and over (%)"
     elif "Children" in low_access_key:
