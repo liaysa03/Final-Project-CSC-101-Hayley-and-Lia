@@ -1,5 +1,3 @@
-import typing
-
 class foodSecurity:
 
     def __init__(self, popEst, under5, under18, over65, white, black, NA, asian, PI, latinx, mixed, whiteA, rent,
