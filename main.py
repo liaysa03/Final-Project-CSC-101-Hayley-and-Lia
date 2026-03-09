@@ -1,4 +1,15 @@
-from dataBuilder import *
+from dataBuilder import (
+    los_angeles_data,
+    orange_data,
+    san_diego_data,
+    riverside_data,
+    san_bernardino_data,
+    ventura_data,
+    santa_barbara_data,
+    kern_data,
+    imperial_data,
+    san_luis_obispo_data
+)
 
 foodSecurity = {
     "Los Angeles": los_angeles_data,
