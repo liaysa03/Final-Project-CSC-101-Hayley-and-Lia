@@ -199,4 +199,3 @@ def which_method():
 if __name__ == "__main__":
     which_method()
 
-# total employment, poverty, and total population
