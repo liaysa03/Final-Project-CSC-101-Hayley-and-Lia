@@ -24,7 +24,7 @@ County = {
     "San Luis Obispo": san_luis_obispo_data
 }
 
-
+# helper function to retrieve population data for a specific group
 def get_population_key(low_access_key):
 
     if "Seniors" in low_access_key:
@@ -43,7 +43,45 @@ def get_population_key(low_access_key):
         else:
             return f"{group_name} alone (%)"
 
+# helper function to retrieve specific metric data
+def get_metric_value(county_data, metric, low_access_key=None):
 
+    total_pop = county_data["Population estimates (July 1, 2024)"]
+
+    total_food_sites = (
+        county_data["FDPIR Sites(2015)"]
+        + county_data["Food Banks (2021)"]
+        + county_data["SNAP Authorized Stores"]
+        + county_data["WIC Authorized Stores"]
+    )
+
+    if metric == "poverty":
+        return float(county_data["Persons in poverty (%)"])
+
+    elif metric == "income":
+        return float(county_data["Per capita income (2024 dollars)"])
+
+    elif metric == "total_sites":
+        return float(total_food_sites)
+
+    elif metric == "sites_per_100k":
+        return (total_food_sites / total_pop) * 100000
+
+    elif metric == "low_access_rate":
+        if not low_access_key:
+            raise ValueError("low_access_key required for low_access_rate")
+        return float(county_data[low_access_key])
+
+    elif metric == "low_access_count":
+        if not low_access_key:
+            raise ValueError("low_access_key required for low_access_count")
+        return float(calculate_low_access(county_data, low_access_key))
+
+    else:
+        raise ValueError("Unknown metric.")
+
+# method 1
+# purpose is to return the number of people in a group that have low access to stores, so we retrieve the group percentage and population from our county data and calculate the number of people
 def calculate_low_access(county_data, low_access_key):
 
     total_pop = county_data["Population estimates (July 1, 2024)"]
@@ -57,7 +95,8 @@ def calculate_low_access(county_data, low_access_key):
 
     return int(low_access_count)
 
-
+# method 2
+# purpose = calculate the food assistance resources to the population, retrieve the food sources available and total them then divide by total population of that county
 def food_assistance_to_pop_ratio(county_data):
 
     total_pop = county_data["Population estimates (July 1, 2024)"]
@@ -72,7 +111,8 @@ def food_assistance_to_pop_ratio(county_data):
     ratio = total_food_sites / total_pop
     return ratio
 
-
+# method 3
+# purpose = calculate the food assistance to poverty ratio, we gathered
 def compare_food_assistance_to_poverty(county_data):
 
     poverty_percent = county_data["Persons in poverty (%)"]
@@ -91,6 +131,7 @@ def compare_food_assistance_to_poverty(county_data):
 
     return poverty_percent, total_food_sites, sites_per_1000_poverty
 
+# method 4
 def compare_food_assistance_to_income(county_data):
 
     income = county_data["Per capita income (2024 dollars)"]
@@ -103,11 +144,154 @@ def compare_food_assistance_to_income(county_data):
         + county_data["WIC Authorized Stores"]
     )
 
-    # normalize by population so counties can be compared fairly
+    # using a standard ratio of per 100,000 to compare other counties fairly
     sites_per_100k = (total_food_sites / total_pop) * 100000
 
     return income, total_food_sites, sites_per_100k
 
+# method 5
+def resource_mix_breakdown(county_data):
+
+    fdpir = county_data.get("FDPIR Sites(2015)", 0) or 0
+    food_banks = county_data.get("Food Banks (2021)", 0) or 0
+    snap = county_data.get("SNAP Authorized Stores", 0) or 0
+    wic = county_data.get("WIC Authorized Stores", 0) or 0
+
+    total = fdpir + food_banks + snap + wic
+
+    if total == 0:
+        return 0, {
+            "FDPIR Sites": 0.0,
+            "Food Banks": 0.0,
+            "SNAP Authorized Stores": 0.0,
+            "WIC Authorized Stores": 0.0,
+        }
+
+    breakdown = {
+        "FDPIR Sites": (fdpir / total) * 100,
+        "Food Banks": (food_banks / total) * 100,
+        "SNAP Authorized Stores": (snap / total) * 100,
+        "WIC Authorized Stores": (wic / total) * 100,
+    }
+
+    return total, breakdown
+
+# method 6
+def compare_multiple_counties_with_metrics(county_names, metrics, low_access_key=None):
+
+    if any(m in ("low_access_rate", "low_access_count") for m in metrics) and not low_access_key:
+        raise ValueError("low_access_key required for low-access metrics.")
+
+    results = {}
+
+    for county in county_names:
+        data = County[county]
+        row = {}
+
+        total_pop = data["Population estimates (July 1, 2024)"]
+
+        total_food_sites = (
+            data["FDPIR Sites(2015)"]
+            + data["Food Banks (2021)"]
+            + data["SNAP Authorized Stores"]
+            + data["WIC Authorized Stores"]
+        )
+
+        if "poverty" in metrics:
+            row["poverty"] = float(data["Persons in poverty (%)"])
+
+        if "income" in metrics:
+            row["income"] = float(data["Per capita income (2024 dollars)"])
+
+        if "total_sites" in metrics:
+            row["total_sites"] = float(total_food_sites)
+
+        if "sites_per_100k" in metrics:
+            row["sites_per_100k"] = (total_food_sites / total_pop) * 100000
+
+        if "low_access_rate" in metrics:
+            row["low_access_rate"] = float(data[low_access_key])
+
+        if "low_access_count" in metrics:
+            row["low_access_count"] = float(calculate_low_access(data, low_access_key))
+
+        if "resource_mix" in metrics:
+            _, breakdown = resource_mix_breakdown(data)
+            row["resource_mix"] = breakdown
+
+        results[county] = row
+
+    return results
+
+# method 7
+def filter_counties_by_threshold(county_names, metric, threshold, low_access_key=None):
+
+    passed = []
+
+    for county in county_names:
+        county_data = County[county]
+        value = get_metric_value(county_data, metric, low_access_key=low_access_key)
+
+        if value > threshold:
+            passed.append((county, value))
+
+    # sort highest to lowest so output is nicer
+    passed.sort(key=lambda x: x[1], reverse=True)
+    return passed
+
+# method 8
+def filter_counties_by_thresholdless(county_names, metric, threshold, low_access_key=None):
+
+    passed = []
+
+    for county in county_names:
+        county_data = County[county]
+        value = get_metric_value(county_data, metric, low_access_key=low_access_key)
+
+        if value < threshold:
+            passed.append((county, value))
+
+    # sort highest to lowest so output is nicer
+    passed.sort(key=lambda x: x[1], reverse=True)
+    return passed
+
+def print_county_website(county_name):
+    county_websites = {
+        "Los Angeles": ["https://www.getcalfresh.org/", "https://www.lafoodbank.org/",
+                        "http://publichealth.lacounty.gov/nut/resources/food-assistance-programs.htm"],
+        "Orange": ["https://www.getcalfresh.org/",
+                   "https://www.capoc.org/oc-food-bank/?gad_source=1&gad_campaignid=1478494483&gbraid=0AAAAADPi94o78G52ORG7OYMYGXbiTjwKP&gclid=Cj0KCQjw37nNBhDkARIsAEBGI8Mqm-zLUVwpdzDXCnVPiQhUwT_PgNWFF0JloIcOxcvNWYixDhkNAqwaAhQ3EALw_wcB",
+                   "https://ocfoodhelp.org/", "https://feedoc.org/need-food/"],
+        "San Diego": ["https://www.getcalfresh.org/",
+                      "https://www.sandiegocounty.gov/content/sdc/hhsa/programs/ssp/food_stamps.html",
+                      "https://feedingsandiego.org/find-food/",
+                      "https://www.sandiegofoodbank.org/programs/emergency-food-assistance-program/"],
+        "Riverside": ["https://www.getcalfresh.org/", "https://riversideca.gov/hhs/get-help/food-supportive-resources"],
+        "San Bernardino": ["https://www.getcalfresh.org/",
+                           "https://www.feedingamericaie.org/get-help?utm_source=feeding_america_riverside_san_bernardino&utm_medium=paid_search&utm_campaign=google_grant&utm_content=ca&utm_term=san%20bernardino%20food%20bank&gad_source=1",
+                           "https://www.capsbc.org/food-bank"],
+        "Ventura": ["https://www.getcalfresh.org/", "https://foodshare.com/",
+                    "https://venturacounty.gov/health-and-human-services/food-assistance-and-healthy-eating/"],
+        "Santa Barbara": ["https://www.getcalfresh.org/",
+                          "https://foodbanksbc.org/get-help/?srsltid=AfmBOoql7WdjMbedRIhkAIYXxilQ8bI5ywmdQY7qcTfbbZKbONb_mNPZ",
+                          "https://sbparksandrec.santabarbaraca.gov/programs-services/food-distributions"],
+        "Kern": ["https://www.getcalfresh.org/", "https://www.capk.org/food-bank/",
+                 "https://www.kerncounty.com/government/aging-adult-services/services/senior-nutrition/supplemental-food-assistance"],
+        "Imperial": ["https://www.getcalfresh.org/", "https://www.ivfoodbank.com/"],
+        "San Luis Obispo": ["https://www.getcalfresh.org/", "https://slofoodbank.org/en/food-locator/",
+                            "https://www.slocounty.ca.gov/departments/health-agency/public-health/all-public-health-services/health-promotion/nutrition-education-calfresh-healthy-living/food-assistance"],
+
+    }
+    urls = county_websites.get(county_name, [])
+    if not urls:
+            print(f"\nNo websites set for {county_name} yet.")
+            return
+
+    print(f"\nFood assistance websites for {county_name}:")
+    for i, url in enumerate(urls, start=1):
+            print(f"{i}. {url}")
+
+# user input functions for user interface
 def select_county():
 
     print("\nSoCal Counties:")
@@ -115,6 +299,7 @@ def select_county():
         print("-", name)
 
     input_county = input("\nWhich SoCal County would you like to analyze?: ").strip()
+
     # chatgpt formating of print output
     county_name = " ".join(word.capitalize() for word in input_county.split())
 
@@ -173,32 +358,6 @@ def select_multiple_counties():
     return valid
 
 
-def resource_mix_breakdown(county_data):
-
-    fdpir = county_data.get("FDPIR Sites(2015)", 0) or 0
-    food_banks = county_data.get("Food Banks (2021)", 0) or 0
-    snap = county_data.get("SNAP Authorized Stores", 0) or 0
-    wic = county_data.get("WIC Authorized Stores", 0) or 0
-
-    total = fdpir + food_banks + snap + wic
-
-    if total == 0:
-        return 0, {
-            "FDPIR Sites": 0.0,
-            "Food Banks": 0.0,
-            "SNAP Authorized Stores": 0.0,
-            "WIC Authorized Stores": 0.0,
-        }
-
-    breakdown = {
-        "FDPIR Sites": (fdpir / total) * 100,
-        "Food Banks": (food_banks / total) * 100,
-        "SNAP Authorized Stores": (snap / total) * 100,
-        "WIC Authorized Stores": (wic / total) * 100,
-    }
-
-    return total, breakdown
-
 def select_metrics():
 
     options = [
@@ -240,156 +399,7 @@ def select_metrics():
 
     return out
 
-
-def compare_multiple_counties_with_metrics(county_names, metrics, low_access_key=None):
-
-    if any(m in ("low_access_rate", "low_access_count") for m in metrics) and not low_access_key:
-        raise ValueError("low_access_key required for low-access metrics.")
-
-    results = {}
-
-    for county in county_names:
-        data = County[county]
-        row = {}
-
-        total_pop = data["Population estimates (July 1, 2024)"]
-
-        total_food_sites = (
-            data["FDPIR Sites(2015)"]
-            + data["Food Banks (2021)"]
-            + data["SNAP Authorized Stores"]
-            + data["WIC Authorized Stores"]
-        )
-
-        if "poverty" in metrics:
-            row["poverty"] = float(data["Persons in poverty (%)"])
-
-        if "income" in metrics:
-            row["income"] = float(data["Per capita income (2024 dollars)"])
-
-        if "total_sites" in metrics:
-            row["total_sites"] = float(total_food_sites)
-
-        if "sites_per_100k" in metrics:
-            row["sites_per_100k"] = (total_food_sites / total_pop) * 100000
-
-        if "low_access_rate" in metrics:
-            row["low_access_rate"] = float(data[low_access_key])
-
-        if "low_access_count" in metrics:
-            row["low_access_count"] = float(calculate_low_access(data, low_access_key))
-
-        if "resource_mix" in metrics:
-            _, breakdown = resource_mix_breakdown(data)
-            row["resource_mix"] = breakdown
-
-        results[county] = row
-
-    return results
-
-def get_metric_value(county_data, metric, low_access_key=None):
-
-    total_pop = county_data["Population estimates (July 1, 2024)"]
-
-    total_food_sites = (
-        county_data["FDPIR Sites(2015)"]
-        + county_data["Food Banks (2021)"]
-        + county_data["SNAP Authorized Stores"]
-        + county_data["WIC Authorized Stores"]
-    )
-
-    if metric == "poverty":
-        return float(county_data["Persons in poverty (%)"])
-
-    elif metric == "income":
-        return float(county_data["Per capita income (2024 dollars)"])
-
-    elif metric == "total_sites":
-        return float(total_food_sites)
-
-    elif metric == "sites_per_100k":
-        return (total_food_sites / total_pop) * 100000
-
-    elif metric == "low_access_rate":
-        if not low_access_key:
-            raise ValueError("low_access_key required for low_access_rate")
-        return float(county_data[low_access_key])
-
-    elif metric == "low_access_count":
-        if not low_access_key:
-            raise ValueError("low_access_key required for low_access_count")
-        return float(calculate_low_access(county_data, low_access_key))
-
-    else:
-        raise ValueError("Unknown metric.")
-
-
-def filter_counties_by_threshold(county_names, metric, threshold, low_access_key=None):
-
-    passed = []
-
-    for county in county_names:
-        county_data = County[county]
-        value = get_metric_value(county_data, metric, low_access_key=low_access_key)
-
-        if value > threshold:
-            passed.append((county, value))
-
-    # sort highest to lowest so output is nicer
-    passed.sort(key=lambda x: x[1], reverse=True)
-    return passed
-def filter_counties_by_thresholdless(county_names, metric, threshold, low_access_key=None):
-
-    passed = []
-
-    for county in county_names:
-        county_data = County[county]
-        value = get_metric_value(county_data, metric, low_access_key=low_access_key)
-
-        if value < threshold:
-            passed.append((county, value))
-
-    # sort highest to lowest so output is nicer
-    passed.sort(key=lambda x: x[1], reverse=True)
-    return passed
-
-def print_county_website(county_name):
-    county_websites = {
-        "Los Angeles": ["https://www.getcalfresh.org/", "https://www.lafoodbank.org/",
-                        "http://publichealth.lacounty.gov/nut/resources/food-assistance-programs.htm"],
-        "Orange": ["https://www.getcalfresh.org/",
-                   "https://www.capoc.org/oc-food-bank/?gad_source=1&gad_campaignid=1478494483&gbraid=0AAAAADPi94o78G52ORG7OYMYGXbiTjwKP&gclid=Cj0KCQjw37nNBhDkARIsAEBGI8Mqm-zLUVwpdzDXCnVPiQhUwT_PgNWFF0JloIcOxcvNWYixDhkNAqwaAhQ3EALw_wcB",
-                   "https://ocfoodhelp.org/", "https://feedoc.org/need-food/"],
-        "San Diego": ["https://www.getcalfresh.org/",
-                      "https://www.sandiegocounty.gov/content/sdc/hhsa/programs/ssp/food_stamps.html",
-                      "https://feedingsandiego.org/find-food/",
-                      "https://www.sandiegofoodbank.org/programs/emergency-food-assistance-program/"],
-        "Riverside": ["https://www.getcalfresh.org/", "https://riversideca.gov/hhs/get-help/food-supportive-resources"],
-        "San Bernardino": ["https://www.getcalfresh.org/",
-                           "https://www.feedingamericaie.org/get-help?utm_source=feeding_america_riverside_san_bernardino&utm_medium=paid_search&utm_campaign=google_grant&utm_content=ca&utm_term=san%20bernardino%20food%20bank&gad_source=1",
-                           "https://www.capsbc.org/food-bank"],
-        "Ventura": ["https://www.getcalfresh.org/", "https://foodshare.com/",
-                    "https://venturacounty.gov/health-and-human-services/food-assistance-and-healthy-eating/"],
-        "Santa Barbara": ["https://www.getcalfresh.org/",
-                          "https://foodbanksbc.org/get-help/?srsltid=AfmBOoql7WdjMbedRIhkAIYXxilQ8bI5ywmdQY7qcTfbbZKbONb_mNPZ",
-                          "https://sbparksandrec.santabarbaraca.gov/programs-services/food-distributions"],
-        "Kern": ["https://www.getcalfresh.org/", "https://www.capk.org/food-bank/",
-                 "https://www.kerncounty.com/government/aging-adult-services/services/senior-nutrition/supplemental-food-assistance"],
-        "Imperial": ["https://www.getcalfresh.org/", "https://www.ivfoodbank.com/"],
-        "San Luis Obispo": ["https://www.getcalfresh.org/", "https://slofoodbank.org/en/food-locator/",
-                            "https://www.slocounty.ca.gov/departments/health-agency/public-health/all-public-health-services/health-promotion/nutrition-education-calfresh-healthy-living/food-assistance"],
-
-    }
-
-
-    urls = county_websites.get(county_name, [])
-    if not urls:
-            print(f"\nNo websites set for {county_name} yet.")
-            return
-
-    print(f"\nFood assistance websites for {county_name}:")
-    for i, url in enumerate(urls, start=1):
-            print(f"{i}. {url}")
+# call to functions based on user input
 def which_method():
 
     print("\nWhich information would you like to know?")
