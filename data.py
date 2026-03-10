@@ -1,4 +1,4 @@
-class foodSecurity:
+class County:
 
     def __init__(self, popEst, under5, under18, over65, white, black, NA, asian, PI, latinx, mixed, whiteA, rent,
                  under65D, under65HI, incomeH, incomeI, poverty, employment, childrenLA, seniorLA, whiteLA, blackLA,

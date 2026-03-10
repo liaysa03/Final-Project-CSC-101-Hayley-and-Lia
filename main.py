@@ -689,7 +689,7 @@ def which_method():
         print("Resource mix (% of total sites):")
         for label, pct in breakdown.items():
             print(f"- {label}: {pct:.2f}%")
-    if choice == "9":
+    elif choice == "9":
         if not county_name:
             return
         print_county_website(county_name)
