@@ -375,8 +375,7 @@ def print_county_website(county_name):
                           "https://sbparksandrec.santabarbaraca.gov/programs-services/food-distributions"],
         "Kern": ["https://www.getcalfresh.org/", "https://www.capk.org/food-bank/",
                  "https://www.kerncounty.com/government/aging-adult-services/services/senior-nutrition/supplemental-food-assistance"],
-        "Imperial": ["https://www.getcalfresh.org/", "https://www.ivfoodbank.com/",
-                     "https://www.slocounty.ca.gov/departments/health-agency/public-health/all-public-health-services/health-promotion/nutrition-education-calfresh-healthy-living/food-assistance"],
+        "Imperial": ["https://www.getcalfresh.org/", "https://www.ivfoodbank.com/"],
         "San Luis Obispo": ["https://www.getcalfresh.org/", "https://slofoodbank.org/en/food-locator/",
                             "https://www.slocounty.ca.gov/departments/health-agency/public-health/all-public-health-services/health-promotion/nutrition-education-calfresh-healthy-living/food-assistance"],
 
