@@ -112,7 +112,7 @@ def food_assistance_to_pop_ratio(county_data):
     return ratio
 
 # method 3
-# purpose = calculate the food assistance to poverty ratio, we gathered
+# purpose = calculate the food assistance to poverty ratio, similar to last method we totaled the food assistance resources in each county, then calculated the total people in poverty and finally calculated ratio of total food assistance over people in poverty per 1000 people to give a clearer comparison for other counties
 def compare_food_assistance_to_poverty(county_data):
 
     poverty_percent = county_data["Persons in poverty (%)"]
@@ -132,6 +132,7 @@ def compare_food_assistance_to_poverty(county_data):
     return poverty_percent, total_food_sites, sites_per_1000_poverty
 
 # method 4
+# purpose = calculate the ratio of food assistance to income
 def compare_food_assistance_to_income(county_data):
 
     income = county_data["Per capita income (2024 dollars)"]
@@ -150,6 +151,7 @@ def compare_food_assistance_to_income(county_data):
     return income, total_food_sites, sites_per_100k
 
 # method 5
+# purpose = to return the composition of available food assistance resources
 def resource_mix_breakdown(county_data):
 
     fdpir = county_data.get("FDPIR Sites(2015)", 0) or 0
@@ -177,6 +179,7 @@ def resource_mix_breakdown(county_data):
     return total, breakdown
 
 # method 6
+# purpose = compare multiple counties metrics at the same time
 def compare_multiple_counties_with_metrics(county_names, metrics, low_access_key=None):
 
     if any(m in ("low_access_rate", "low_access_count") for m in metrics) and not low_access_key:
@@ -224,6 +227,7 @@ def compare_multiple_counties_with_metrics(county_names, metrics, low_access_key
     return results
 
 # method 7
+# purpose = to filter counties based on a greater than threshold for selected metric
 def filter_counties_by_threshold(county_names, metric, threshold, low_access_key=None):
 
     passed = []
@@ -240,6 +244,7 @@ def filter_counties_by_threshold(county_names, metric, threshold, low_access_key
     return passed
 
 # method 8
+# purpose = to filter counties based on a less than threshold for selected metric
 def filter_counties_by_thresholdless(county_names, metric, threshold, low_access_key=None):
 
     passed = []
@@ -255,6 +260,8 @@ def filter_counties_by_thresholdless(county_names, metric, threshold, low_access
     passed.sort(key=lambda x: x[1], reverse=True)
     return passed
 
+# method 9
+# purpose = to print available food assistance websites for selected county
 def print_county_website(county_name):
     county_websites = {
         "Los Angeles": ["https://www.getcalfresh.org/", "https://www.lafoodbank.org/",
