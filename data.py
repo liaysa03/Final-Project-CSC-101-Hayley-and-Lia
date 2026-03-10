@@ -69,5 +69,3 @@ class County:
                 self.WIC == other.WIC and self.groceryStore == other.groceryStore
         )
 
-
-# check for typos
