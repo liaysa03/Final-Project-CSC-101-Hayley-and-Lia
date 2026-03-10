@@ -1,5 +1,5 @@
 from data import County
-
+# check dictionaries
 san_bernardino_dict = {
     "Population estimates (July 1, 2024)": 2214281,
     "Persons under 5 years (%)": 6.00,
@@ -350,4 +350,5 @@ ventura_dict = {
     "WIC Authorized Stores": 105.00,
     "Grocery stores (2020)": 175.00,
 }
+
 
