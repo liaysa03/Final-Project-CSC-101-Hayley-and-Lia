@@ -29,17 +29,17 @@ def test_low_access_children_orange():
 
 #2
 def test_food_ratio_la():
-    ratio = main.food_assistance_to_pop_ratio(los_angeles_data)
+    ratio = main.food_assistance_to_pop_ratio(san_diego_data)
     assert ratio > 0
 
 
 def test_food_ratio_orange():
-    ratio = main.food_assistance_to_pop_ratio(orange_data)
+    ratio = main.food_assistance_to_pop_ratio(riverside_data)
     assert ratio > 0
 
 #3
 def test_food_vs_poverty_la():
-    poverty, sites, ratio = main.compare_food_assistance_to_poverty(los_angeles_data)
+    poverty, sites, ratio = main.compare_food_assistance_to_poverty(san_bernardino_data)
 
     assert poverty > 0
     assert sites > 0
@@ -47,7 +47,7 @@ def test_food_vs_poverty_la():
 
 
 def test_food_vs_poverty_orange():
-    poverty, sites, ratio = main.compare_food_assistance_to_poverty(orange_data)
+    poverty, sites, ratio = main.compare_food_assistance_to_poverty(ventura_data)
 
     assert poverty > 0
     assert sites > 0
@@ -55,7 +55,7 @@ def test_food_vs_poverty_orange():
 
 #4
 def test_food_vs_income_la():
-    income, sites, ratio = main.compare_food_assistance_to_income(los_angeles_data)
+    income, sites, ratio = main.compare_food_assistance_to_income(santa_barbara_data)
 
     assert income > 0
     assert sites > 0
@@ -63,8 +63,81 @@ def test_food_vs_income_la():
 
 
 def test_food_vs_income_orange():
-    income, sites, ratio = main.compare_food_assistance_to_income(orange_data)
+    income, sites, ratio = main.compare_food_assistance_to_income(kern_data)
 
     assert income > 0
     assert sites > 0
     assert ratio > 0
+
+#5
+def test_resource_mix_la():
+    total, breakdown = main.resource_mix_breakdown(imperial_data)
+
+    assert total > 0
+    assert isinstance(breakdown, dict)
+
+
+def test_resource_mix_orange():
+    total, breakdown = main.resource_mix_breakdown(san_luis_obispo_data)
+
+    assert total > 0
+    assert "SNAP Authorized Stores" in breakdown
+
+#6
+def test_compare_multiple_poverty():
+    counties = ["Los Angeles", "Orange"]
+    metrics = ["poverty"]
+
+    result = main.compare_multiple_counties_with_metrics(counties, metrics)
+
+    assert "Los Angeles" in result
+    assert "poverty" in result["Los Angeles"]
+
+
+def test_compare_multiple_sites():
+    counties = ["San Diego", "Riverside"]
+    metrics = ["total_sites"]
+
+    result = main.compare_multiple_counties_with_metrics(counties, metrics)
+
+    assert result["San Diego"]["total_sites"] > 0
+
+#7
+def test_filter_threshold_poverty():
+    counties = ["San Bernardino", "Ventura"]
+
+    result = main.filter_counties_by_threshold(counties, "poverty", 5)
+
+    assert isinstance(result, list)
+
+
+def test_filter_threshold_sites():
+    counties = ["Santa Barbara", "Kern"]
+
+    result = main.filter_counties_by_threshold(counties, "total_sites", 100)
+
+    assert len(result) >= 0
+
+#8
+def test_filter_thresholdless_income():
+    counties = ["Imperial", "San Luis Obispo"]
+
+    result = main.filter_counties_by_thresholdless(counties, "income", 100000)
+
+    assert isinstance(result, list)
+
+
+def test_filter_thresholdless_sites():
+    counties = ["Los Angeles", "Orange"]
+
+    result = main.filter_counties_by_thresholdless(counties, "total_sites", 10000)
+
+    assert isinstance(result, list)
+
+#9
+def test_print_county_website_la():
+    main.print_county_website("San Diego")
+
+
+def test_print_county_website_orange():
+    main.print_county_website("Riverside")

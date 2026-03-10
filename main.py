@@ -688,7 +688,7 @@ def which_method():
         print(f"\n{county_name} Total Food Assistance Sites: {total_sites}")
         print("Resource mix (% of total sites):")
         for label, pct in breakdown.items():
-            print(f"- {label}: {pct:.2f}%")
+            print(f"- {label}: {pct:}%")
     elif choice == "9":
         if not county_name:
             return
