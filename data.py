@@ -1,40 +1,38 @@
 class County:
 
-    def __init__(self, popEst, under5, under18, over65, white, black, NA, asian, PI, latinx, mixed, whiteA, rent,
-                 under65D, under65HI, incomeH, incomeI, poverty, employment, childrenLA, seniorLA, whiteLA, blackLA,
-                 latinxLA, asianLA, NALA, PILA, FDPIR, foodbank, SNAP, WIC, groceryStore):
-        self.popEst = popEst
-        self.under5 = under5
-        self.under18 = under18
-        self.over65 = over65
-        self.white = white
-        self.black = black
-        self.NA = NA
-        self.asian = asian
-        self.PI = PI
-        self.latinx = latinx
-        self.mixed = mixed
-        self.whiteA = whiteA
-        self.rent = rent
-        self.under65D = under65D
-        self.under65HI = under65HI
-        self.incomeH = incomeH
-        self.incomeI = incomeI
-        self.poverty = poverty
-        self.employment = employment
-        self.childrenLA = childrenLA
-        self.seniorLA = seniorLA
-        self.whiteLA = whiteLA
-        self.blackLA = blackLA
-        self.latinxLA = latinxLA
-        self.asianLA = asianLA
-        self.NALA = NALA
-        self.PILA = PILA
-        self.FDPIR = FDPIR
-        self.foodbank = foodbank
-        self.SNAP = SNAP
-        self.WIC = WIC
-        self.groceryStore = groceryStore
+    def __init__(self, data_dict):
+        self.popEst = data_dict["Population estimates (July 1, 2024)"]
+        self.under5 = data_dict["Persons under 5 years (%)"]
+        self.under18 = data_dict["Persons under 18 years (%)"]
+        self.over65 = data_dict["Persons 65 years and over (%)"]
+        self.white = data_dict["White alone (%)"]
+        self.black = data_dict["Black alone (%)"]
+        self.NA = data_dict["American Indian and Alaska Native alone (%)"]
+        self.asian = data_dict["Asian alone (%)"]
+        self.PI = data_dict["Native Hawaiian and Other Pacific Islander alone (%)"]
+        self.latinx = data_dict["Hispanic or Latino (%)"]
+        self.mixed = data_dict["Two or More Races (%)"]
+        self.whiteA = data_dict["White alone, not Hispanic or Latino (%)"]
+        self.rent = data_dict["Median gross rent (2020–2024)"]
+        self.under65D = data_dict["With a disability, under age 65 years (%)"]
+        self.under65HI = data_dict["Persons without health insurance, under age 65 years (%)"]
+        self.incomeH = data_dict["Median household income (2024 dollars)"]
+        self.incomeI = data_dict["Per capita income (2024 dollars)"]
+        self.poverty = data_dict["Persons in poverty (%)"]
+        self.employment = data_dict["Total employment (2023)"]
+        self.childrenLA = data_dict["Children,low access to store (2019)"]
+        self.seniorLA = data_dict["Seniors, low access to store (2019)"]
+        self.whiteLA = data_dict["White, low access to store (2019)"]
+        self.blackLA = data_dict["Black, low access to store (2019)"]
+        self.latinxLA = data_dict["Hispanic, low access to store (2019)"]
+        self.asianLA = data_dict["Asian, low access to store (2019)"]
+        self.NALA = data_dict["American Indian or Alaska Native, low access to store (2019)"]
+        self.PILA = data_dict["Hawaiian or Pacific Islander, low access to store (2019)"]
+        self.FDPIR = data_dict["FDPIR Sites(2015)"]
+        self.foodbank = data_dict["Food Banks (2021)"]
+        self.SNAP = data_dict["SNAP Authorized Stores"]
+        self.WIC = data_dict["WIC Authorized Stores"]
+        self.groceryStore = data_dict["Grocery stores (2020)"]
 
     def __repr__(self):
         return (
@@ -52,7 +50,7 @@ class County:
             "Number of Grocery Stores").format(
             self.popEst, self.under5, self.under18, self.over65, self.white, self.black, self.NA, self.asian,
             self.PI, self.latinx, self.mixed, self.whiteA, self.rent, self.under65D, self.under65HI, self.incomeH,
-            self.incomeI, self.poverty, self.employment, self.childrenLA, self.whiteLA, self.blackLA, self.latinxLA,
+            self.incomeI, self.poverty, self.employment, self.childrenLA, self.seniorLA, self.whiteLA, self.blackLA, self.latinxLA,
             self.asianLA, self.NALA, self.PILA, self.FDPIR, self.foodbank, self.SNAP, self.WIC , self.groceryStore
             )
 
@@ -70,3 +68,5 @@ class County:
                 self.FDPIR == other.FDPIR and self.foodbank == other.foodbank and self.SNAP == other.SNAP and
                 self.WIC == other.WIC and self.groceryStore == other.groceryStore
         )
+
+

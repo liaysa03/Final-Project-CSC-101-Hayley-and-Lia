@@ -1,20 +1,20 @@
 import main
 from dataBuilder import (
-    los_angeles_data,
-    orange_data,
-    san_diego_data,
-    riverside_data,
-    san_bernardino_data,
-    ventura_data,
-    santa_barbara_data,
-    kern_data,
-    imperial_data,
-    san_luis_obispo_data
+    los_angeles_dict,
+    orange_dict,
+    san_diego_dict,
+    riverside_dict,
+    san_bernardino_dict,
+    ventura_dict,
+    santa_barbara_dict,
+    kern_dict,
+    imperial_dict,
+    san_luis_obispo_dict
 )
 # 1
 def test_low_access_hispanic_la():
     result = main.calculate_low_access(
-        los_angeles_data,
+        los_angeles_dict,
         "Hispanic, low access to store (2019)"
     )
     assert result > 0
@@ -22,24 +22,24 @@ def test_low_access_hispanic_la():
 
 def test_low_access_children_orange():
     result = main.calculate_low_access(
-        orange_data,
+        orange_dict,
         "Children, low access to store (2019)"
     )
     assert result > 0
 
 #2
 def test_food_ratio_la():
-    ratio = main.food_assistance_to_pop_ratio(san_diego_data)
+    ratio = main.food_assistance_to_pop_ratio(san_diego_dict)
     assert ratio > 0
 
 
 def test_food_ratio_orange():
-    ratio = main.food_assistance_to_pop_ratio(riverside_data)
+    ratio = main.food_assistance_to_pop_ratio(riverside_dict)
     assert ratio > 0
 
 #3
 def test_food_vs_poverty_la():
-    poverty, sites, ratio = main.compare_food_assistance_to_poverty(san_bernardino_data)
+    poverty, sites, ratio = main.compare_food_assistance_to_poverty(san_bernardino_dict)
 
     assert poverty > 0
     assert sites > 0
@@ -47,7 +47,7 @@ def test_food_vs_poverty_la():
 
 
 def test_food_vs_poverty_orange():
-    poverty, sites, ratio = main.compare_food_assistance_to_poverty(ventura_data)
+    poverty, sites, ratio = main.compare_food_assistance_to_poverty(ventura_dict)
 
     assert poverty > 0
     assert sites > 0
@@ -55,7 +55,7 @@ def test_food_vs_poverty_orange():
 
 #4
 def test_food_vs_income_la():
-    income, sites, ratio = main.compare_food_assistance_to_income(santa_barbara_data)
+    income, sites, ratio = main.compare_food_assistance_to_income(santa_barbara_dict)
 
     assert income > 0
     assert sites > 0
@@ -63,7 +63,7 @@ def test_food_vs_income_la():
 
 
 def test_food_vs_income_orange():
-    income, sites, ratio = main.compare_food_assistance_to_income(kern_data)
+    income, sites, ratio = main.compare_food_assistance_to_income(kern_dict)
 
     assert income > 0
     assert sites > 0
@@ -71,14 +71,14 @@ def test_food_vs_income_orange():
 
 #5
 def test_resource_mix_la():
-    total, breakdown = main.resource_mix_breakdown(imperial_data)
+    total, breakdown = main.resource_mix_breakdown(imperial_dict)
 
     assert total > 0
     assert isinstance(breakdown, dict)
 
 
 def test_resource_mix_orange():
-    total, breakdown = main.resource_mix_breakdown(san_luis_obispo_data)
+    total, breakdown = main.resource_mix_breakdown(san_luis_obispo_dict)
 
     assert total > 0
     assert "SNAP Authorized Stores" in breakdown

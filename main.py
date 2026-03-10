@@ -1,27 +1,27 @@
 from dataBuilder import (
-    los_angeles_data,
-    orange_data,
-    san_diego_data,
-    riverside_data,
-    san_bernardino_data,
-    ventura_data,
-    santa_barbara_data,
-    kern_data,
-    imperial_data,
-    san_luis_obispo_data
+    los_angeles_dict,
+    orange_dict,
+    san_diego_dict,
+    riverside_dict,
+    san_bernardino_dict,
+    ventura_dict,
+    santa_barbara_dict,
+    kern_dict,
+    imperial_dict,
+    san_luis_obispo_dict
 )
 
 County = {
-    "Los Angeles": los_angeles_data,
-    "Orange": orange_data,
-    "San Diego": san_diego_data,
-    "Riverside": riverside_data,
-    "San Bernardino": san_bernardino_data,
-    "Ventura": ventura_data,
-    "Santa Barbara": santa_barbara_data,
-    "Kern": kern_data,
-    "Imperial": imperial_data,
-    "San Luis Obispo": san_luis_obispo_data
+    "Los Angeles": los_angeles_dict,
+    "Orange": orange_dict,
+    "San Diego": san_diego_dict,
+    "Riverside": riverside_dict,
+    "San Bernardino": san_bernardino_dict,
+    "Ventura": ventura_dict,
+    "Santa Barbara": santa_barbara_dict,
+    "Kern": kern_dict,
+    "Imperial": imperial_dict,
+    "San Luis Obispo": san_luis_obispo_dict
 }
 
 

@@ -1,4 +1,6 @@
-san_bernardino_data = {
+from data import County
+
+san_bernardino_dict = {
     "Population estimates (July 1, 2024)": 2214281,
     "Persons under 5 years (%)": 6.00,
     "Persons under 18 years (%)": 24.80,
@@ -30,10 +32,10 @@ san_bernardino_data = {
     "Food Banks (2021)": 0,
     "SNAP Authorized Stores": 1511.00,
     "WIC Authorized Stores": 208,
-    "Grocery stores": 308
+    "Grocery stores (2020)": 308
 }
 
-riverside_data = {
+riverside_dict = {
     "Population estimates (July 1, 2024)": 2529933,
     "Persons under 5 years (%)": 5.70,
     "Persons under 18 years (%)": 23.40,
@@ -68,7 +70,7 @@ riverside_data = {
     "Grocery stores (2020)": 353,
 }
 
-san_diego_data = {
+san_diego_dict = {
     "Population estimates (July 1, 2024)": 3298799,
     "Persons under 5 years (%)": 5.40,
     "Persons under 18 years (%)": 20.40,
@@ -104,7 +106,7 @@ san_diego_data = {
 
 }
 
-orange_data = {
+orange_dict = {
     "Population estimates (July 1, 2024)": 3170435,
     "Persons under 5 years (%)": 4.90,
     "Persons under 18 years (%)": 20.30,
@@ -139,7 +141,7 @@ orange_data = {
     "Grocery stores (2020)": 509,
 }
 
-los_angeles_data = {
+los_angeles_dict = {
     "Population estimates (July 1, 2024)": 9757179,
     "Persons under 5 years (%)": 4.90,
     "Persons under 18 years (%)": 19.90,
@@ -174,7 +176,7 @@ los_angeles_data = {
     "Grocery stores (2020)": 1908.00,
 }
 
-san_luis_obispo_data = {
+san_luis_obispo_dict = {
     "Population estimates (July 1, 2024)": 281843,
     "Persons under 5 years (%)": 4.20,
     "Persons under 18 years (%)": 17.10,
@@ -209,7 +211,7 @@ san_luis_obispo_data = {
     "Grocery stores (2020)": 60,
 }
 
-imperial_data = {
+imperial_dict = {
     "Population estimates (July 1, 2024)": 181724,
     "Persons under 5 years (%)": 6.70,
     "Persons under 18 years (%)": 27.90,
@@ -244,7 +246,7 @@ imperial_data = {
     "Grocery stores (2020)": 25.00,
 }
 
-kern_data = {
+kern_dict = {
     "Population estimates (July 1, 2024)": 922529,
     "Persons under 5 years (%)": 6.60,
     "Persons under 18 years (%)": 27.90,
@@ -279,7 +281,7 @@ kern_data = {
     "Grocery stores (2020)": 191,
 }
 
-santa_barbara_data = {
+santa_barbara_dict = {
     "Population estimates (July 1, 2024)": 444500,
     "Persons under 5 years (%)": 6.10,
     "Persons under 18 years (%)": 22.20,
@@ -314,7 +316,7 @@ santa_barbara_data = {
     "Grocery stores (2020)": 124.00,
 }
 
-ventura_data = {
+ventura_dict = {
     "Population estimates (July 1, 2024)": 835427,
     "Persons under 5 years (%)": 5.20,
     "Persons under 18 years (%)": 21.10,
@@ -348,3 +350,4 @@ ventura_data = {
     "WIC Authorized Stores": 105.00,
     "Grocery stores (2020)": 175.00,
 }
+
