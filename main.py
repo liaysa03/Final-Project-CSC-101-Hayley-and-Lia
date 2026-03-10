@@ -11,7 +11,7 @@ from dataBuilder import (
     san_luis_obispo_data
 )
 
-foodSecurity = {
+County = {
     "Los Angeles": los_angeles_data,
     "Orange": orange_data,
     "San Diego": san_diego_data,
@@ -111,14 +111,14 @@ def compare_food_assistance_to_income(county_data):
 def select_county():
 
     print("\nSoCal Counties:")
-    for name in foodSecurity:
+    for name in County:
         print("-", name)
 
     input_county = input("\nWhich SoCal County would you like to analyze?: ").strip()
     # chatgpt formating of print output
     county_name = " ".join(word.capitalize() for word in input_county.split())
 
-    if county_name not in foodSecurity:
+    if county_name not in County:
         print("County not found.")
         return None
 
@@ -144,7 +144,7 @@ def select_group(county_data):
 
 def select_multiple_counties():
     print("\nSoCal Counties:")
-    for name in foodSecurity:
+    for name in County:
         print("-", name)
 
     raw = input(
@@ -161,7 +161,7 @@ def select_multiple_counties():
     # validate
     valid = []
     for c in counties:
-        if c in foodSecurity:
+        if c in County:
             valid.append(c)
         else:
             print(f"County not found (skipping): {c}")
@@ -249,7 +249,7 @@ def compare_multiple_counties_with_metrics(county_names, metrics, low_access_key
     results = {}
 
     for county in county_names:
-        data = foodSecurity[county]
+        data = County[county]
         row = {}
 
         total_pop = data["Population estimates (July 1, 2024)"]
@@ -329,7 +329,7 @@ def filter_counties_by_threshold(county_names, metric, threshold, low_access_key
     passed = []
 
     for county in county_names:
-        county_data = foodSecurity[county]
+        county_data = County[county]
         value = get_metric_value(county_data, metric, low_access_key=low_access_key)
 
         if value > threshold:
@@ -343,7 +343,7 @@ def filter_counties_by_thresholdless(county_names, metric, threshold, low_access
     passed = []
 
     for county in county_names:
-        county_data = foodSecurity[county]
+        county_data = County[county]
         value = get_metric_value(county_data, metric, low_access_key=low_access_key)
 
         if value < threshold:
@@ -417,7 +417,7 @@ def which_method():
 
         low_access_key = None
         if any(m in ("low_access_rate", "low_access_count") for m in metrics):
-            first_county_data = foodSecurity[county_names[0]]
+            first_county_data = County[county_names[0]]
             low_access_key = select_group(first_county_data)
             if not low_access_key:
                 return
@@ -501,7 +501,7 @@ def which_method():
 
     # ---------- Option 7: multi-county threshold filter ----------
     if choice == "7":
-        county_names = list(foodSecurity.keys())
+        county_names = list(County.keys())
         if not county_names:
             return
 
@@ -532,7 +532,7 @@ def which_method():
 
         low_access_key = None
         if metric in ("low_access_rate", "low_access_count"):
-            first_county_data = foodSecurity[county_names[0]]
+            first_county_data = County[county_names[0]]
             low_access_key = select_group(first_county_data)
             if not low_access_key:
                 return
@@ -576,7 +576,7 @@ def which_method():
 
         return
     if choice == "8":
-        county_names = list(foodSecurity.keys())
+        county_names = list(County.keys())
         if not county_names:
             return
 
@@ -607,7 +607,7 @@ def which_method():
 
         low_access_key = None
         if metric in ("low_access_rate", "low_access_count"):
-            first_county_data = foodSecurity[county_names[0]]
+            first_county_data = County[county_names[0]]
             low_access_key = select_group(first_county_data)
             if not low_access_key:
                 return
@@ -655,7 +655,7 @@ def which_method():
     if not county_name:
         return
 
-    county_data = foodSecurity[county_name]
+    county_data = County[county_name]
 
     if choice == "1":
         group_key = select_group(county_data)
