@@ -424,7 +424,6 @@ def which_method():
 
     choice = input("\nEnter the number of the method: ").strip()
 
-    # ---------- Option 6: multi-county compare ----------
     if choice == "6":
         county_names = select_multiple_counties()
         if not county_names:
@@ -518,7 +517,6 @@ def which_method():
 
         return
 
-    # ---------- Option 7: multi-county threshold filter ----------
     if choice == "7":
         county_names = list(County.keys())
         if not county_names:
