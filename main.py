@@ -1,4 +1,3 @@
-# check website links
 
 from dataBuilder import (
     los_angeles_dict,
@@ -12,6 +11,9 @@ from dataBuilder import (
     imperial_dict,
     san_luis_obispo_dict
 )
+
+from data import County as CountyObj
+
 
 County = {
     "Los Angeles": los_angeles_dict,
@@ -46,22 +48,22 @@ def get_population_key(low_access_key):
             return f"{group_name} alone (%)"
 
 # helper function to retrieve specific metric data
-def get_metric_value(county_data, metric, low_access_key=None):
+def get_metric_value(county_obj, metric, low_access_key=None):
 
-    total_pop = county_data["Population estimates (July 1, 2024)"]
+    total_pop = county_obj.popEst
 
     total_food_sites = (
-        county_data["FDPIR Sites(2015)"]
-        + county_data["Food Banks (2021)"]
-        + county_data["SNAP Authorized Stores"]
-        + county_data["WIC Authorized Stores"]
+        county_obj.FDPIR
+        + county_obj.foodbank
+        + county_obj.SNAP
+        + county_obj.WIC
     )
 
     if metric == "poverty":
-        return float(county_data["Persons in poverty (%)"])
+        return float(county_obj.poverty)
 
     elif metric == "income":
-        return float(county_data["Per capita income (2024 dollars)"])
+        return float(county_obj.incomeI)
 
     elif metric == "total_sites":
         return float(total_food_sites)
@@ -72,25 +74,25 @@ def get_metric_value(county_data, metric, low_access_key=None):
     elif metric == "low_access_rate":
         if not low_access_key:
             raise ValueError("low_access_key required for low_access_rate")
-        return float(county_data[low_access_key])
+        return float(county_obj.data[low_access_key])
 
     elif metric == "low_access_count":
         if not low_access_key:
             raise ValueError("low_access_key required for low_access_count")
-        return float(calculate_low_access(county_data, low_access_key))
+        return float(calculate_low_access(county_obj, low_access_key))
 
     else:
         raise ValueError("Unknown metric.")
 
 # method 1
 # purpose is to return the number of people in a group that have low access to stores, so we retrieve the group percentage and population from our county data and calculate the number of people
-def calculate_low_access(county_data, low_access_key):
+def calculate_low_access(county_obj, low_access_key):
 
-    total_pop = county_data["Population estimates (July 1, 2024)"]
+    total_pop = county_obj.popEst
     pop_key = get_population_key(low_access_key)
 
-    group_percent = county_data[pop_key]
-    low_access_percent = county_data[low_access_key]
+    group_percent = county_obj.data[pop_key]
+    low_access_percent = county_obj.data[low_access_key]
 
     group_count = total_pop * (group_percent / 100)
     low_access_count = group_count * (low_access_percent / 100)
@@ -99,15 +101,15 @@ def calculate_low_access(county_data, low_access_key):
 
 # method 2
 # purpose = calculate the food assistance resources to the population, retrieve the food sources available and total them then divide by total population of that county
-def food_assistance_to_pop_ratio(county_data):
+def food_assistance_to_pop_ratio(county_obj):
 
-    total_pop = county_data["Population estimates (July 1, 2024)"]
+    total_pop = county_obj.popEst
 
     total_food_sites = (
-        county_data["FDPIR Sites(2015)"]
-        + county_data["Food Banks (2021)"]
-        + county_data["SNAP Authorized Stores"]
-        + county_data["WIC Authorized Stores"]
+        county_obj.FDPIR
+        + county_obj.foodbank
+        + county_obj.SNAP
+        + county_obj.WIC
     )
 
     ratio = total_food_sites / total_pop
@@ -115,16 +117,16 @@ def food_assistance_to_pop_ratio(county_data):
 
 # method 3
 # purpose = calculate the food assistance to poverty ratio, similar to last method we totaled the food assistance resources in each county, then calculated the total people in poverty and finally calculated ratio of total food assistance over people in poverty per 1000 people to give a clearer comparison for other counties
-def compare_food_assistance_to_poverty(county_data):
+def compare_food_assistance_to_poverty(county_obj):
 
-    poverty_percent = county_data["Persons in poverty (%)"]
-    total_pop = county_data["Population estimates (July 1, 2024)"]
+    poverty_percent = county_obj.poverty
+    total_pop = county_obj.popEst
 
     total_food_sites = (
-        county_data["FDPIR Sites(2015)"]
-        + county_data["Food Banks (2021)"]
-        + county_data["SNAP Authorized Stores"]
-        + county_data["WIC Authorized Stores"]
+        county_obj.FDPIR
+        + county_obj.foodbank
+        + county_obj.SNAP
+        + county_obj.WIC
     )
 
     people_in_poverty = total_pop * (poverty_percent / 100)
@@ -135,16 +137,16 @@ def compare_food_assistance_to_poverty(county_data):
 
 # method 4
 # purpose = calculate the ratio of food assistance to income
-def compare_food_assistance_to_income(county_data):
+def compare_food_assistance_to_income(county_obj):
 
-    income = county_data["Per capita income (2024 dollars)"]
-    total_pop = county_data["Population estimates (July 1, 2024)"]
+    income = county_obj.incomeI
+    total_pop = county_obj.popEst
 
     total_food_sites = (
-        county_data["FDPIR Sites(2015)"]
-        + county_data["Food Banks (2021)"]
-        + county_data["SNAP Authorized Stores"]
-        + county_data["WIC Authorized Stores"]
+        county_obj.FDPIR
+        + county_obj.foodbank
+        + county_obj.SNAP
+        + county_obj.WIC
     )
 
     # using a standard ratio of per 100,000 to compare other counties fairly
@@ -154,12 +156,12 @@ def compare_food_assistance_to_income(county_data):
 
 # method 5
 # purpose = to return the composition of available food assistance resources
-def resource_mix_breakdown(county_data):
+def resource_mix_breakdown(county_obj):
 
-    fdpir = county_data.get("FDPIR Sites(2015)", 0) or 0
-    food_banks = county_data.get("Food Banks (2021)", 0) or 0
-    snap = county_data.get("SNAP Authorized Stores", 0) or 0
-    wic = county_data.get("WIC Authorized Stores", 0) or 0
+    fdpir = getattr(county_obj, "FDPIR", 0) or 0
+    food_banks = getattr(county_obj, "foodbank", 0) or 0
+    snap = getattr(county_obj, "SNAP", 0) or 0
+    wic = getattr(county_obj, "WIC", 0) or 0
 
     total = fdpir + food_banks + snap + wic
 
@@ -191,22 +193,23 @@ def compare_multiple_counties_with_metrics(county_names, metrics, low_access_key
 
     for county in county_names:
         data = County[county]
+        cobj = CountyObj(data)
         row = {}
 
-        total_pop = data["Population estimates (July 1, 2024)"]
+        total_pop = cobj.popEst
 
         total_food_sites = (
-            data["FDPIR Sites(2015)"]
-            + data["Food Banks (2021)"]
-            + data["SNAP Authorized Stores"]
-            + data["WIC Authorized Stores"]
+            cobj.FDPIR
+            + cobj.foodbank
+            + cobj.SNAP
+            + cobj.WIC
         )
 
         if "poverty" in metrics:
-            row["poverty"] = float(data["Persons in poverty (%)"])
+            row["poverty"] = float(cobj.poverty)
 
         if "income" in metrics:
-            row["income"] = float(data["Per capita income (2024 dollars)"])
+            row["income"] = float(cobj.incomeI)
 
         if "total_sites" in metrics:
             row["total_sites"] = float(total_food_sites)
@@ -215,13 +218,13 @@ def compare_multiple_counties_with_metrics(county_names, metrics, low_access_key
             row["sites_per_100k"] = (total_food_sites / total_pop) * 100000
 
         if "low_access_rate" in metrics:
-            row["low_access_rate"] = float(data[low_access_key])
+            row["low_access_rate"] = float(cobj.data[low_access_key])
 
         if "low_access_count" in metrics:
-            row["low_access_count"] = float(calculate_low_access(data, low_access_key))
+            row["low_access_count"] = float(calculate_low_access(cobj, low_access_key))
 
         if "resource_mix" in metrics:
-            _, breakdown = resource_mix_breakdown(data)
+            _, breakdown = resource_mix_breakdown(cobj)
             row["resource_mix"] = breakdown
 
         results[county] = row
@@ -236,7 +239,8 @@ def filter_counties_by_threshold(county_names, metric, threshold, low_access_key
 
     for county in county_names:
         county_data = County[county]
-        value = get_metric_value(county_data, metric, low_access_key=low_access_key)
+        cobj = CountyObj(county_data)
+        value = get_metric_value(cobj, metric, low_access_key=low_access_key)
 
         if value > threshold:
             passed.append((county, value))
@@ -253,7 +257,8 @@ def filter_counties_by_thresholdless(county_names, metric, threshold, low_access
 
     for county in county_names:
         county_data = County[county]
-        value = get_metric_value(county_data, metric, low_access_key=low_access_key)
+        cobj = CountyObj(county_data)
+        value = get_metric_value(cobj, metric, low_access_key=low_access_key)
 
         if value < threshold:
             passed.append((county, value))
@@ -345,7 +350,6 @@ def select_multiple_counties():
         "\nEnter counties to compare (comma-separated, e.g. Los Angeles, Orange, San Diego): "
     ).strip()
 
-    # normalize user input similar to your single-county selector
     counties = []
     for part in raw.split(","):
         county_name = " ".join(word.capitalize() for word in part.strip().split())
@@ -396,7 +400,6 @@ def select_metrics():
         if 1 <= idx <= len(options):
             chosen.append(options[idx - 1][0])
 
-    # de-dupe, keep order
     out = []
     for m in chosen:
         if m not in out:
@@ -673,35 +676,36 @@ def which_method():
         return
 
     county_data = County[county_name]
+    county_obj = CountyObj(county_data)
 
     if choice == "1":
         group_key = select_group(county_data)
         if not group_key:
             return
 
-        count = calculate_low_access(county_data, group_key)
+        count = calculate_low_access(county_obj, group_key)
         print(
             f"\nEstimated number of {group_key.replace(', low access to store (2019)','')} with low access in {county_name}: {count}"
         )
 
     elif choice == "2":
-        ratio = food_assistance_to_pop_ratio(county_data)
+        ratio = food_assistance_to_pop_ratio(county_obj)
         print(f"\nFood assistance to population ratio in {county_name}: {ratio:}")
 
     elif choice == "3":
-        poverty_percent, total_food_sites, sites_per_1000 = compare_food_assistance_to_poverty(county_data)
+        poverty_percent, total_food_sites, sites_per_1000 = compare_food_assistance_to_poverty(county_obj)
         print(f"\n{county_name} Poverty Rate: {poverty_percent}%")
         print(f"Total Food Assistance Sites: {total_food_sites}")
         print(f"Food Assistance Sites per 1000 People in Poverty: {sites_per_1000:}")
 
     elif choice == "4":
-        income, total_food_sites, sites_per_100k = compare_food_assistance_to_income(county_data)
+        income, total_food_sites, sites_per_100k = compare_food_assistance_to_income(county_obj)
         print(f"\n{county_name} Per Capita Income: ${income}")
         print(f"Total Food Assistance Sites: {total_food_sites}")
         print(f"Food Assistance Sites per 100,000 People: {sites_per_100k:}")
 
     elif choice == "5":
-        total_sites, breakdown = resource_mix_breakdown(county_data)
+        total_sites, breakdown = resource_mix_breakdown(county_obj)
         print(f"\n{county_name} Total Food Assistance Sites: {total_sites}")
         print("Resource mix (% of total sites):")
         for label, pct in breakdown.items():
@@ -717,6 +721,3 @@ def which_method():
 
 if __name__ == "__main__":
     which_method()
-
-
-

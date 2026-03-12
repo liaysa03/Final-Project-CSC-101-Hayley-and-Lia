@@ -1,6 +1,10 @@
+# countyClass.py  (ONLY required change: store the original dict on the object)
+
 class County:
 
     def __init__(self, data_dict):
+        self.data = data_dict
+
         self.popEst = data_dict["Population estimates (July 1, 2024)"]
         self.under5 = data_dict["Persons under 5 years (%)"]
         self.under18 = data_dict["Persons under 18 years (%)"]
@@ -51,21 +55,20 @@ class County:
             self.popEst, self.under5, self.under18, self.over65, self.white, self.black, self.NA, self.asian,
             self.PI, self.latinx, self.mixed, self.whiteA, self.rent, self.under65D, self.under65HI, self.incomeH,
             self.incomeI, self.poverty, self.employment, self.childrenLA, self.seniorLA, self.whiteLA, self.blackLA, self.latinxLA,
-            self.asianLA, self.NALA, self.PILA, self.FDPIR, self.foodbank, self.SNAP, self.WIC , self.groceryStore
-            )
+            self.asianLA, self.NALA, self.PILA, self.FDPIR, self.foodbank, self.SNAP, self.WIC, self.groceryStore
+        )
 
     def __eq__(self, other):
         return (
-                self.popEst == other.popEst and self.under5 == other.under5 and self.under18 == other.under18 and
-                self.over65 == other.over65 and self.white == other.white and self.black == other.black and
-                self.NA == other.NA and self.asian == other.asian and self.PI == other.PI and self.latinx == other.latinx
-                and self.mixed == other.mixed and self.whiteA == other.whiteA and self.rent == other.rent
-                and self.under65D == other.under65D and self.under65HI == other.under65HI and
-                self.incomeH == other.incomeH and self.incomeI == other.incomeI and self.poverty == other.poverty
-                and self.employment == other.employment and self.childrenLA == other.childrenLA and self.seniorLA == other.seniorLA
-                and self.whiteLA == other.whiteLA and self.blackLA == other.blackLA and self.latinxLA == other.latinxLA
-                and self.asianLA == other.asianLA and self.NALA == other.NALA and self.PILA == other.PILA and
-                self.FDPIR == other.FDPIR and self.foodbank == other.foodbank and self.SNAP == other.SNAP and
-                self.WIC == other.WIC and self.groceryStore == other.groceryStore
+            self.popEst == other.popEst and self.under5 == other.under5 and self.under18 == other.under18 and
+            self.over65 == other.over65 and self.white == other.white and self.black == other.black and
+            self.NA == other.NA and self.asian == other.asian and self.PI == other.PI and self.latinx == other.latinx
+            and self.mixed == other.mixed and self.whiteA == other.whiteA and self.rent == other.rent
+            and self.under65D == other.under65D and self.under65HI == other.under65HI and
+            self.incomeH == other.incomeH and self.incomeI == other.incomeI and self.poverty == other.poverty
+            and self.employment == other.employment and self.childrenLA == other.childrenLA and self.seniorLA == other.seniorLA
+            and self.whiteLA == other.whiteLA and self.blackLA == other.blackLA and self.latinxLA == other.latinxLA
+            and self.asianLA == other.asianLA and self.NALA == other.NALA and self.PILA == other.PILA and
+            self.FDPIR == other.FDPIR and self.foodbank == other.foodbank and self.SNAP == other.SNAP and
+            self.WIC == other.WIC and self.groceryStore == other.groceryStore
         )
-
