@@ -85,7 +85,8 @@ def get_metric_value(county_obj, metric, low_access_key=None):
         raise ValueError("Unknown metric.")
 
 # method 1
-# purpose is to return the number of people in a group that have low access to stores, so we retrieve the group percentage and population from our county data and calculate the number of people
+# purpose is to return the number of people in a group that have low access to stores, so we retrieve the group
+# percentage and population from our county data and calculate the number of people
 def calculate_low_access(county_obj, low_access_key):
 
     total_pop = county_obj.popEst
@@ -100,7 +101,8 @@ def calculate_low_access(county_obj, low_access_key):
     return int(low_access_count)
 
 # method 2
-# purpose = calculate the food assistance resources to the population, retrieve the food sources available and total them then divide by total population of that county
+# purpose = calculate the food assistance resources to the population, retrieve the food sources available and total
+# them then divide by total population of that county
 def food_assistance_to_pop_ratio(county_obj):
 
     total_pop = county_obj.popEst
@@ -116,7 +118,9 @@ def food_assistance_to_pop_ratio(county_obj):
     return ratio
 
 # method 3
-# purpose = calculate the food assistance to poverty ratio, similar to last method we totaled the food assistance resources in each county, then calculated the total people in poverty and finally calculated ratio of total food assistance over people in poverty per 1000 people to give a clearer comparison for other counties
+# purpose = calculate the food assistance to poverty ratio, similar to last method we totaled the food assistance
+# resources in each county, then calculated the total people in poverty and finally calculated ratio of total food
+# assistance over people in poverty per 1000 people to give a clearer comparison for other counties
 def compare_food_assistance_to_poverty(county_obj):
 
     poverty_percent = county_obj.poverty
