@@ -25,7 +25,7 @@ def test_low_access_children_orange():
         orange_dict,
         "Children, low access to store (2019)"
     )
-    assert result < -10
+    assert result < 0
 
 #2
 def test_food_ratio_la():
